@@ -1,0 +1,5 @@
+# Ignore plots and/or animations
+*.png
+*.gif
+*.gifv
+*.mp4
