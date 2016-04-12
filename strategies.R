@@ -3,37 +3,24 @@ rnd <- function(turns) {
   turns <- c(1:turns)
   y     <- c(TRUE, FALSE)
   x     <- sample(y, 1, prob = c(0.5, 0.5), replace = T)
-  
+
   for (i in turns) {
     x[i] <- sample(y, 1, prob = c(0.5, 0.5), replace = T)
   }
-  
+
   return(x)
 }
 
-
 # cooperate; done
 coop <- function(turns) {
-  turns <- c(1:turns)
-  x     <- TRUE
-  
-  for (i in turns) {
-    x[i] <- TRUE
-  }
-  
+  x <- rep(TRUE, turns)
   return(x)
 }
 
 
 # defect; done
 defect <- function(turns) {
-  turns <- c(1:turns)
-  x     <- FALSE
-  
-  for (i in turns) {
-    x[i] <- FALSE
-  }
-  
+  x <- rep(FALSE, turns)
   return(x)
 }
 
@@ -42,15 +29,15 @@ defect <- function(turns) {
 per_kind  <- function(turns) {
   turns <- c(1:turns)
   x     <- TRUE
-  
+
   for (i in turns) {
     x[i]   <- TRUE
   }
-  
+
   for (i in floor(turns / 3)) {
     x[i*3] <- FALSE
   }
-  
+
   return(x)
 }
 
@@ -59,15 +46,15 @@ per_kind  <- function(turns) {
 per_nasty <- function(turns) {
   turns <- c(1:turns)
   x     <- FALSE
-  
+
   for (i in turns) {
     x[i]   <- FALSE
   }
-  
+
   for (i in floor(turns / 3)) {
     x[i*3] <- TRUE
   }
-  
+
   return(x)
 }
 
@@ -79,7 +66,7 @@ soft_majo <- function(turns) {
   } else {
     x <- FALSE
   }
-  
+
   return(x)
 }
 
@@ -94,7 +81,7 @@ spite <- function(turns) {
     x <- FALSE
     )
   }
-  
+
   return(x)
 }
 
@@ -107,7 +94,7 @@ tit_for_tat <- function(turns) {
   } else {
     x <- FALSE
   }
-  
+
   return(x)
 }
 
@@ -120,7 +107,7 @@ tit_for_tat <- function(turns) {
   } else {
     x <- FALSE
   }
-  
+
   return(x)
 }
 
@@ -133,15 +120,15 @@ prober <- function(turns) {
   } else {
     tit_for_tat(turns)
   }
-  
+
   return(x)
 }
 
 
 # pavlov; dummy
 pavlov <- function(turns) {
-  # kooperiere im ersten Zug, 
+  # kooperiere im ersten Zug,
   # dann nur, wenn beide Spieler denselben Zug gemacht haben
-  
+
   # I don't even...
 }
