@@ -26,6 +26,7 @@ defect <- function(turns) {
 
 
 # per kind; done
+# spiele periodisch [kooperieren, kooperieren, defektieren]
 per_kind  <- function(turns) {
   turns <- c(1:turns)
   x     <- TRUE
@@ -43,6 +44,7 @@ per_kind  <- function(turns) {
 
 
 # per nasty; dummy
+# spiele periodisch [defektiern, defektieren, kooperieren]
 per_nasty <- function(turns) {
   turns <- c(1:turns)
   x     <- FALSE
@@ -60,6 +62,7 @@ per_nasty <- function(turns) {
 
 
 # soft majority; dummy
+# spiele den meistbenutzten Zug des Gegners, bei Gleichheit kooperiere
 soft_majo <- function(turns) {
   if (Gegenspieler(TRUE) / Gegenspieler_n >= 0.5) {
     x <- TRUE
@@ -72,6 +75,8 @@ soft_majo <- function(turns) {
 
 
 # spite; dummy
+# kooperiere im ersten Zug, dann kooperiere, solange der Gegner noch nicht defektiert hat,
+# danach defektiere immer
 spite <- function(turns) {
   start_with(TRUE)
   if (Gegenspieler == "TRUE") {
@@ -87,6 +92,8 @@ spite <- function(turns) {
 
 
 # tit for tat; dummy
+# kooperiere im ersten Zug,
+# in jedem weiteren Zug spiele den Zug, den der Gegner bei letzten Mal benutzt hat.
 tit_for_tat <- function(turns) {
   start_with(TRUE)
   if (Gegenspieler == "TRUE") {
@@ -100,6 +107,7 @@ tit_for_tat <- function(turns) {
 
 
 # mistrust; dummy
+# defektiere im ersten Zug, danach spiele wie tit-for-tat
 tit_for_tat <- function(turns) {
   start_with(FALSE)
   if (Gegenspieler == "TRUE") {
@@ -113,6 +121,9 @@ tit_for_tat <- function(turns) {
 
 
 # prober; dummy
+# spiele die ersten drei Züge [kooperieren, defektieren, defektieren]
+# defektiere in allen weiteren Zügen, wenn der Gegner im zweiten und dritten Zug kooperiert hat,
+# sonst spiele tit-for-tat
 prober <- function(turns) {
   start_with(TRUE, TRUE, FALSE)
   if (Gegenspieler[Zug 2 & 3] == "TRUE") {
