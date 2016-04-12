@@ -38,27 +38,37 @@ defect <- function(turns) {
 }
 
 
-# per kind; dummy
+# per kind; done
 per_kind  <- function(turns) {
-  for ('jedes erste und zweite' i in turns) {
-    print(TRUE)
+  turns <- c(1:turns)
+  x     <- TRUE
+  
+  for (i in turns) {
+    x[i]   <- TRUE
   }
   
-  for ('jedes dritte' i in turns) {
-    print(FALSE)
+  for (i in floor(turns / 3)) {
+    x[i*3] <- FALSE
   }
+  
+  return(x)
 }
 
 
 # per nasty; dummy
 per_nasty <- function(turns) {
-  for ('jedes erste und zweite' i in turns) {
-    print(FALSE)
+  turns <- c(1:turns)
+  x     <- FALSE
+  
+  for (i in turns) {
+    x[i]   <- FALSE
   }
   
-  for ('jedes dritte' i in turns) {
-    print(TRUE)
+  for (i in floor(turns / 3)) {
+    x[i*3] <- TRUE
   }
+  
+  return(x)
 }
 
 
