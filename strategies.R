@@ -1,3 +1,4 @@
+# random; wip
 rnd <- function() {
   y <- c(TRUE, FALSE)
   x <- sample(y, 1, prob = c(0.1, 0.1), replace = T)
@@ -6,12 +7,53 @@ rnd <- function() {
 }
 
 
-coop <- TRUE
+# cooperate; done
+coop <- function(turns) {
+  turns <- c(1:turns)
+  x     <- TRUE
+  
+  for (i in turns) {
+    x[i] <- TRUE
+  }
+  
+  return(x)
+}
 
-defect <- FALSE
 
-per_kind  <- c(TRUE, TRUE, FALSE)
-per_nasty <- c(FALSE, FALSE, TRUE)
+# defect; done
+defect <- function(turns) {
+  turns <- c(1:turns)
+  x     <- FALSE
+  
+  for (i in turns) {
+    x[i] <- FALSE
+  }
+  
+  return(x)
+}
+
+
+per_kind  <- function() {
+  for ('jedes erste und zweite' i in turns) {
+    print(TRUE)
+  }
+  
+  for ('jedes dritte' i in turns) {
+    print(FALSE)
+  }
+}
+
+
+per_nasty <- function() {
+  for ('jedes erste und zweite' i in turns) {
+    print(FALSE)
+  }
+  
+  for ('jedes dritte' i in turns) {
+    print(TRUE)
+  }
+}
+
 
 soft_majo <- function() {
   if (Gegenspieler(TRUE) / Gegenspieler_n >= 0.5) {
