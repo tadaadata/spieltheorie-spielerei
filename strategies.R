@@ -1,7 +1,12 @@
-# random; wip
-rnd <- function() {
-  y <- c(TRUE, FALSE)
-  x <- sample(y, 1, prob = c(0.1, 0.1), replace = T)
+# random; done
+rnd <- function(turns) {
+  turns <- c(1:turns)
+  y     <- c(TRUE, FALSE)
+  x     <- sample(y, 1, prob = c(0.5, 0.5), replace = T)
+  
+  for (i in turns) {
+    x[i] <- sample(y, 1, prob = c(0.5, 0.5), replace = T)
+  }
   
   return(x)
 }
