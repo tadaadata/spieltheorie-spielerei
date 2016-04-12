@@ -37,17 +37,8 @@ per_kind  <- function(turns) {
 # per nasty; dummy
 # spiele periodisch [defektiern, defektieren, kooperieren]
 per_nasty <- function(turns) {
-  turns <- c(1:turns)
-  x     <- FALSE
-
-  for (i in turns) {
-    x[i]   <- FALSE
-  }
-
-  for (i in floor(turns / 3)) {
-    x[i*3] <- TRUE
-  }
-
+  x <- rep(FALSE, turns)
+  x[c(FALSE, FALSE, TRUE)] <- TRUE
   return(x)
 }
 
