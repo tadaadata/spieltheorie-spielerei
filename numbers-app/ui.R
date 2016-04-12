@@ -16,16 +16,13 @@ shinyUI(fluidPage(
   # Sidebar with a slider input for number of bins
   wellPanel(
     fluidRow(
-      column(width = 4,
+      column(width = 6,
              numericInput("number", "Zahl zwischen 0 und 10", value = NULL, min = 0, max = 10, width = "100%", step = 1)
              ),
-      column(width = 4,
+      column(width = 6,
             textInput("id", "ID zur Zuordnung", value = NULL, width = "100%", placeholder = "Test01")
-      ),
-      column(width = 4,
-             tags$strong("Bestätigen"),
-             actionButton("submit", "OK", width = "100%")
       )
-    )
+    ),
+      actionButton("submit", "OK", width = "100%")
   )
 ))
