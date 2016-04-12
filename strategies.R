@@ -28,17 +28,8 @@ defect <- function(turns) {
 # per kind; done
 # spiele periodisch [kooperieren, kooperieren, defektieren]
 per_kind  <- function(turns) {
-  turns <- c(1:turns)
-  x     <- TRUE
-
-  for (i in turns) {
-    x[i]   <- TRUE
-  }
-
-  for (i in floor(turns / 3)) {
-    x[i*3] <- FALSE
-  }
-
+  x <- rep(TRUE, turns)
+  x[c(FALSE, FALSE, TRUE)] <- FALSE
   return(x)
 }
 
