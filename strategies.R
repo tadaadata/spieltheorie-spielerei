@@ -38,7 +38,8 @@ defect <- function(turns) {
 }
 
 
-per_kind  <- function() {
+# per kind; dummy
+per_kind  <- function(turns) {
   for ('jedes erste und zweite' i in turns) {
     print(TRUE)
   }
@@ -49,7 +50,8 @@ per_kind  <- function() {
 }
 
 
-per_nasty <- function() {
+# per nasty; dummy
+per_nasty <- function(turns) {
   for ('jedes erste und zweite' i in turns) {
     print(FALSE)
   }
@@ -60,7 +62,8 @@ per_nasty <- function() {
 }
 
 
-soft_majo <- function() {
+# soft majority; dummy
+soft_majo <- function(turns) {
   if (Gegenspieler(TRUE) / Gegenspieler_n >= 0.5) {
     x <- TRUE
   } else {
@@ -70,7 +73,9 @@ soft_majo <- function() {
   return(x)
 }
 
-spite <- function() {
+
+# spite; dummy
+spite <- function(turns) {
   start_with(TRUE)
   if (Gegenspieler == "TRUE") {
     x <- TRUE
@@ -84,7 +89,8 @@ spite <- function() {
 }
 
 
-tit_for_tat <- function() {
+# tit for tat; dummy
+tit_for_tat <- function(turns) {
   start_with(TRUE)
   if (Gegenspieler == "TRUE") {
     x <- TRUE
@@ -93,4 +99,39 @@ tit_for_tat <- function() {
   }
   
   return(x)
+}
+
+
+# mistrust; dummy
+tit_for_tat <- function(turns) {
+  start_with(FALSE)
+  if (Gegenspieler == "TRUE") {
+    x <- TRUE
+  } else {
+    x <- FALSE
+  }
+  
+  return(x)
+}
+
+
+# prober; dummy
+prober <- function(turns) {
+  start_with(TRUE, TRUE, FALSE)
+  if (Gegenspieler[Zug 2 & 3] == "TRUE") {
+    x <- always(FALSE)
+  } else {
+    tit_for_tat(turns)
+  }
+  
+  return(x)
+}
+
+
+# pavlov; dummy
+pavlov <- function(turns) {
+  # kooperiere im ersten Zug, 
+  # dann nur, wenn beide Spieler denselben Zug gemacht haben
+  
+  # I don't even...
 }
