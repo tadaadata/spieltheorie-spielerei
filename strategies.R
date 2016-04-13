@@ -1,3 +1,7 @@
+# initial matrix
+game <- matrix(nrow = turns, ncol = 2, byrow = T)
+
+
 # random; done
 rnd <- function(turns) {
   turns <- c(1:turns)
@@ -73,31 +77,33 @@ spite <- function(turns) {
 }
 
 
-# tit for tat; dummy
+# tit for tat; pseudodone
 # kooperiere im ersten Zug,
 # in jedem weiteren Zug spiele den Zug, den der Gegner bei letzten Mal benutzt hat.
-tit_for_tat <- function(turns) {
-  start_with(TRUE)
-  if (Gegenspieler == "TRUE") {
-    x <- TRUE
-  } else {
-    x <- FALSE
+tft <- function(turns) {
+  turns <- c(1:turns)
+  for (i in turns) {
+    if (i == 1) {
+      x = TRUE
+    } else {
+      x[i] <- games[i-1, 1]
+    }
   }
-
   return(x)
 }
 
 
-# mistrust; dummy
+# mistrust; pseudodone
 # defektiere im ersten Zug, danach spiele wie tit-for-tat
-tit_for_tat <- function(turns) {
-  start_with(FALSE)
-  if (Gegenspieler == "TRUE") {
-    x <- TRUE
-  } else {
-    x <- FALSE
+mistrust <- function(turns) {
+  turns <- c(1:turns)
+  for (i in turns) {
+    if (i == 1) {
+      x = FALSE
+    } else {
+      x[i] <- games[i-1, 1]
+    }
   }
-
   return(x)
 }
 
