@@ -1,7 +1,11 @@
+#### Basics ####
+
 # initial matrix
-game <- matrix(nrow = turns, ncol = 2, byrow = T)
+new_game <- function(turns){
+  matrix(nrow = turns, ncol = 2, byrow = T)
+}
 
-
+#### None-reactive staretgies ####
 # random; done
 rnd <- function(turns) {
   turns <- c(1:turns)
@@ -46,7 +50,7 @@ per_nasty <- function(turns) {
   return(x)
 }
 
-
+#### Reactive strategies ####
 # soft majority; dummy
 # spiele den meistbenutzten Zug des Gegners, bei Gleichheit kooperiere
 soft_majo <- function(turns) {
