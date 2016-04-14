@@ -52,10 +52,10 @@ per_nasty <- function(turns) {
 soft_majo <- function(turns) {
   turns <- c(1:turns)
   for (i in turns) {
-    if (i = 1) {
-      x = TRUE
+    if (i == 1) {
+      x <- TRUE
     } else {
-      tbl <- table(games[ , 1]) / length(games[ , 1])
+      tbl <- table(games[1:(i-1), 1]) / length(games[1:(i-1), 1])
       
       if (tbl[2] < 0.5) {
         x[i] <- FALSE
