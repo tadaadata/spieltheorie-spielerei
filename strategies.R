@@ -62,8 +62,8 @@ soft_majo <- function(turns) {
     if (i == 1) {
       x <- TRUE
     } else {
-      tbl <- table(games[1:(i-1), 1]) / length(games[1:(i-1), 1])
-      x[i] <- ifelse(tbl[1] >= 0.5, TRUE, FALSE)
+      tbl <- prop.table(table(games[1:(i-1), 1]))
+      x[i] <- ifelse(tbl[1] <= 0.5, TRUE, FALSE)
     }
   }
   
@@ -71,19 +71,21 @@ soft_majo <- function(turns) {
 }
 
 
-# spite; dummy
+# spite; wip
 # kooperiere im ersten Zug, dann kooperiere, solange der Gegner noch nicht defektiert hat,
 # danach defektiere immer
 spite <- function(turns) {
-  start_with(TRUE)
-  if (Gegenspieler == "TRUE") {
-    x <- TRUE
-  } else {
-    always(
-    x <- FALSE
-    )
+  turns <- c(1:turns)
+  
+  for (i in turns) {
+    if (i == 1) {
+      x <- TRUE
+    } else {
+      tbl <- table(games[1:(i-1), 1])
+      x[i] <- ifelse(tbl[1] > 0, TRUE, FALSE)
+    }
   }
-
+  
   return(x)
 }
 
