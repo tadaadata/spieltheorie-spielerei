@@ -50,7 +50,8 @@ per_nasty <- function(turns) {
 # soft majority; broken
 # spiele den meistbenutzten Zug des Gegners, bei Gleichheit kooperiere
 soft_majo <- function(turns) {
-  for (i in truns) {
+  turns <- c(1:turns)
+  for (i in turns) {
     if (i = 1) {
       x = TRUE
     } else {
