@@ -63,7 +63,7 @@ soft_majo <- function(turns) {
       x <- TRUE
     } else {
       tbl <- table(games[1:(i-1), 1]) / length(games[1:(i-1), 1])
-      x[i] <- ifelse(tbl[2] < 0.5, FALSE, TRUE)
+      x[i] <- ifelse(tbl[1] >= 0.5, TRUE, FALSE)
     }
   }
   
