@@ -47,13 +47,21 @@ per_nasty <- function(turns) {
 }
 
 
-# soft majority; dummy
+# soft majority; broken
 # spiele den meistbenutzten Zug des Gegners, bei Gleichheit kooperiere
 soft_majo <- function(turns) {
-  if (Gegenspieler(TRUE) / Gegenspieler_n >= 0.5) {
-    x <- TRUE
-  } else {
-    x <- FALSE
+  for (i in truns) {
+    if (i = 1) {
+      x = TRUE
+    } else {
+      tbl <- table(games[ , 1]) / length(games[ , 1])
+      
+      if (tbl[2] < 0.5) {
+        x[i] <- FALSE
+      } else {
+        x[i] <- TRUE
+      }
+    }
   }
 
   return(x)
