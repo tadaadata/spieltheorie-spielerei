@@ -8,7 +8,7 @@ new_game <- function(turns){
 #### None-reactive staretgies ####
 # random; done
 rnd <- function(turns) {
-  turns <- c(1:turns)
+  turns <- seq(turns)
   y     <- c(TRUE, FALSE)
   x     <- sample(y, 1, prob = c(0.5, 0.5), replace = T)
 
@@ -56,8 +56,8 @@ per_nasty <- function(turns) {
 # soft majority; done
 # spiele den meistbenutzten Zug des Gegners, bei Gleichheit kooperiere
 soft_majo <- function(turns) {
-  turns <- c(1:turns)
-  
+  turns <- seq(turns)
+
   for (i in turns) {
     if (i == 1) {
       x <- TRUE
@@ -66,7 +66,7 @@ soft_majo <- function(turns) {
       x[i] <- ifelse(tbl[1] <= 0.5, TRUE, FALSE)
     }
   }
-  
+
   return(x)
 }
 
@@ -75,8 +75,8 @@ soft_majo <- function(turns) {
 # kooperiere im ersten Zug, dann kooperiere, solange der Gegner noch nicht defektiert hat,
 # danach defektiere immer
 spite <- function(turns) {
-  turns <- c(1:turns)
-  
+  turns <- seq(turns)
+
   for (i in turns) {
     if (i == 1) {
       x <- TRUE
@@ -85,7 +85,7 @@ spite <- function(turns) {
       x[i] <- ifelse(attr(tbl[1], "names") == "FALSE", FALSE, TRUE)
     }
   }
-  
+
   return(x)
 }
 
@@ -94,7 +94,8 @@ spite <- function(turns) {
 # kooperiere im ersten Zug,
 # in jedem weiteren Zug spiele den Zug, den der Gegner bei letzten Mal benutzt hat.
 tft <- function(turns) {
-  turns <- c(1:turns)
+  turns <- seq(turns)
+
   for (i in turns) {
     if (i == 1) {
       x = TRUE
@@ -109,7 +110,8 @@ tft <- function(turns) {
 # mistrust; done
 # defektiere im ersten Zug, danach spiele wie tit-for-tat
 mistrust <- function(turns) {
-  turns <- c(1:turns)
+  turns <- seq(turns)
+
   for (i in turns) {
     if (i == 1) {
       x = FALSE
@@ -126,8 +128,8 @@ mistrust <- function(turns) {
 # defektiere in allen weiteren Zügen, wenn der Gegner im zweiten und dritten Zug kooperiert hat,
 # sonst spiele tit-for-tat
 prober <- function(turns) {
-  turns <- c(1:turns)
-  
+  turns <- seq(turns)
+
   for (i in turns) {
     x[i] <- ifelse(i == 1, TRUE, ifelse(
       i == 2, FALSE, ifelse(
@@ -146,10 +148,11 @@ prober <- function(turns) {
 # kooperiere im ersten Zug,
 # dann nur, wenn beide Spieler denselben Zug gemacht haben
 pavlov <- function(turns) {
-  turns <- c(1:turns)
+  turns <- seq(turns)
+
   for (i in turns) {
     if (i == 1) {
-      games[i, 2] <<- TRUE
+      games[i, 2] <<- TRUE # "games" als funktionsargument, dann kannste dir <<- sparen und <- reicht
     } else {
       games[i, 2] <<- ifelse(games[i-1, 1] == games[i-1, 2], TRUE, FALSE)
     }
