@@ -42,7 +42,7 @@ per_kind  <- function(turns) {
 }
 
 
-# per nasty; dummy
+# per nasty; done
 # spiele periodisch [defektiern, defektieren, kooperieren]
 per_nasty <- function(turns) {
   x <- rep(FALSE, turns)
@@ -53,7 +53,7 @@ per_nasty <- function(turns) {
 
 #### Reactive strategies ####
 
-# soft majority; broken
+# soft majority; done
 # spiele den meistbenutzten Zug des Gegners, bei Gleichheit kooperiere
 soft_majo <- function(turns) {
   turns <- c(1:turns)
@@ -71,7 +71,7 @@ soft_majo <- function(turns) {
 }
 
 
-# spite; wip
+# spite; done
 # kooperiere im ersten Zug, dann kooperiere, solange der Gegner noch nicht defektiert hat,
 # danach defektiere immer
 spite <- function(turns) {
@@ -90,7 +90,7 @@ spite <- function(turns) {
 }
 
 
-# tit for tat; pseudodone
+# tit for tat; done
 # kooperiere im ersten Zug,
 # in jedem weiteren Zug spiele den Zug, den der Gegner bei letzten Mal benutzt hat.
 tft <- function(turns) {
@@ -106,7 +106,7 @@ tft <- function(turns) {
 }
 
 
-# mistrust; pseudodone
+# mistrust; done
 # defektiere im ersten Zug, danach spiele wie tit-for-tat
 mistrust <- function(turns) {
   turns <- c(1:turns)
@@ -138,9 +138,16 @@ prober <- function(turns) {
 
 
 # pavlov; dummy
+# kooperiere im ersten Zug,
+# dann nur, wenn beide Spieler denselben Zug gemacht haben
 pavlov <- function(turns) {
-  # kooperiere im ersten Zug,
-  # dann nur, wenn beide Spieler denselben Zug gemacht haben
-
-  # I don't even...
+  turns <- c(1:turns)
+  for (i in turns) {
+    if (i == 1) {
+      games[i, 2] <<- TRUE
+    } else {
+      games[i, 2] <<- ifelse(games[i-1, 1] == games[i-1, 2], TRUE, FALSE)
+    }
+  }
+  return(games[ , 2])
 }
