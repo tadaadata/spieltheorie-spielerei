@@ -81,8 +81,8 @@ spite <- function(turns) {
     if (i == 1) {
       x <- TRUE
     } else {
-      tbl <- table(games[1:(i-1), 1])
-      x[i] <- ifelse(tbl[1] > 0, TRUE, FALSE)
+      tbl  <- table(games[1:(i-1), 1])
+      x[i] <- ifelse(attr(tbl[1], "names") == "FALSE", FALSE, TRUE)
     }
   }
   
