@@ -121,23 +121,28 @@ mistrust <- function(turns) {
 }
 
 
-# prober; dummy
+# prober; done
 # spiele die ersten drei Züge [kooperieren, defektieren, defektieren]
 # defektiere in allen weiteren Zügen, wenn der Gegner im zweiten und dritten Zug kooperiert hat,
 # sonst spiele tit-for-tat
 prober <- function(turns) {
-  start_with(TRUE, TRUE, FALSE)
-  if (Gegenspieler[Zug 2 & 3] == "TRUE") {
-    x <- always(FALSE)
-  } else {
-    tit_for_tat(turns)
+  turns <- c(1:turns)
+  
+  for (i in turns) {
+    x[i] <- ifelse(i == 1, TRUE, ifelse(
+      i == 2, FALSE, ifelse(
+        i == 3, FALSE, ifelse(
+          (games[2, 1] & games[3, 1]) == TRUE, FALSE, games[i-1, 1]
+        )
+      )
+    ))
   }
 
   return(x)
 }
 
 
-# pavlov; dummy
+# pavlov; done
 # kooperiere im ersten Zug,
 # dann nur, wenn beide Spieler denselben Zug gemacht haben
 pavlov <- function(turns) {
