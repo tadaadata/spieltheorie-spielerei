@@ -38,13 +38,14 @@ play_game <- function(strat_self = "tft", strat_enemy = "soft_majo", turns = 100
 calc_score <- function(game = NULL) {
   if (is.null(game)) return(NULL)
 
-  for (i in seq(nrow(game))) {
-    game[i, "score"] <- ifelse(identical(as.logical(game[1, c(1, 2)]), c(TRUE, TRUE)), yes = 3,
-                               ifelse(identical(as.logical(game[1, c(1, 2)]), c(TRUE, FALSE)), yes = 5,
-                                      ifelse(identical(as.logical(game[1, c(1, 2)]), c(FALSE, TRUE)), yes = 0,
-                                             ifelse(identical(as.logical(game[1, c(1, 2)]), c(FALSE, FALSE)), yes = 1, no = NA))))
-  }
-
+  score <- rep(NA, nrow(game))
+  game$score <- vapply(seq(nrow(game)), function(i){
+                  score <- ifelse(identical(as.logical(game[i, c(1, 2)]), c(TRUE, TRUE)), yes = 3,
+                                  ifelse(identical(as.logical(game[i, c(1, 2)]), c(TRUE, FALSE)), yes = 5,
+                                         ifelse(identical(as.logical(game[i, c(1, 2)]), c(FALSE, TRUE)), yes = 0,
+                                                ifelse(identical(as.logical(game[i, c(1, 2)]), c(FALSE, FALSE)), yes = 1, no = NULL))))
+                  return(score)
+                }, FUN.VALUE = numeric(1), USE.NAMES = F)
   return(game)
 }
 
