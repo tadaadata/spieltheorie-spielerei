@@ -12,28 +12,28 @@ knitr::opts_chunk$set(echo = TRUE)
 ## Tit for tat vs. random
 
 ```{r tft_random}
-play_game("tft", "random", turns = 100) %>%
+play_game("tft", "random", turns = 1000) %>%
   gather(side, score, starts_with("score_")) %>%
   group_by(side) %>%
   mutate(cum_score = cumsum(score)) %>%
   {
     ggplot(data = ., aes(x = turn, y = cum_score, color = side)) +
     geom_path() +
-      labs(title = "TFT (self) vs random (enemy)")
+    labs(title = "TFT (self) vs random (enemy)")
   }
 ```
 
 ## Random vs random
 
 ```{r}
-play_game("random", "random", turns = 100) %>%
+play_game("random", "random", turns = 1000) %>%
   gather(side, score, starts_with("score_")) %>%
   group_by(side) %>%
   mutate(cum_score = cumsum(score)) %>%
   {
     ggplot(data = ., aes(x = turn, y = cum_score, color = side)) +
     geom_path() +
-      labs(title = "Random (self) vs random (enemy)")
+    labs(title = "Random (self) vs random (enemy)")
   }
 ```
 
