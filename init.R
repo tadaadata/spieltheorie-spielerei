@@ -89,7 +89,7 @@ play_game <- function(strat_self = "tft", strat_enemy = "soft_majo", turns = 100
   }
 
   ## Get the score
-  game %>% calc_score() -> game
+  game <- calc_score(game)
 
   return(game)
 }
