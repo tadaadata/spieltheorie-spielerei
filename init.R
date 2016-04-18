@@ -4,6 +4,7 @@ library(ggplot2)
 if (!("gganimate" %in% installed.packages())) devtools::install_github("dgrtwo/gganimate")
 library(gganimate)
 library(dplyr)
+library(tidyr)
 
 #### Running a simulation ####
 
@@ -67,7 +68,7 @@ play_game <- function(strat_self = "tft", strat_enemy = "soft_majo", turns = 100
       }
     } else {
       # self strats
-      if (strat_self == "tft"){
+      if (strat_self == "tft" | strat_self == "mistrust"){
         game[i, "self"] <- game[i - 1, "enemy"]
       } else if (strat_self == "spite") {
         game[i, "self"] <- ifelse(FALSE %in% game$enemy, FALSE, TRUE)
@@ -78,7 +79,7 @@ play_game <- function(strat_self = "tft", strat_enemy = "soft_majo", turns = 100
       # enemy strats
       if (strat_enemy == "soft_majo"){
         game[i, "enemy"] <- as.logical(names(table(game$self))[table(game$self) == max(table(game$self))])[1] # soft_majo
-      } else if (strat_enemy == "tft") {
+      } else if (strat_enemy == "tft" | strat_enemy == "mistrust") {
         game[i, "enemy"] <- game[i - 1, "self"]
       } else if (strat_enemy == "spite") {
         game[i, "enemy"] <- ifelse(FALSE %in% game$self, FALSE, TRUE)

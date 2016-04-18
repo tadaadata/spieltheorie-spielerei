@@ -1,0 +1,27 @@
+---
+title: "simulation_plots"
+author: "Lukas Burk"
+date: "18 April 2016"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Tit for tat vs. random
+
+```{r tft_random}
+play_game("tft", "random", turns = 100) %>%
+  mutate(turn = seq(nrow(.))) %>%
+  gather(side, score, starts_with("score_")) %>%
+  group_by(side) %>%
+  mutate(cum_score = cumsum(score)) %>%
+  {
+    ggplot(data = ., aes(x = turn, y = cum_score, color = side)) +
+    geom_path() +
+      labs(title = "TFT (self) vs random (enemy)")
+  }
+  
+```
+
