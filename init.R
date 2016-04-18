@@ -98,17 +98,18 @@ calc_score <- function(game = NULL) {
   if (is.null(game)) return(NULL)
 
   game$score_self <- vapply(seq(nrow(game)), function(i){
-                      score <- ifelse(identical(as.logical(game[i, c(1, 2)]), c(TRUE, TRUE)), yes = 3,
-                                      ifelse(identical(as.logical(game[i, c(1, 2)]), c(TRUE, FALSE)), yes = 5,
-                                             ifelse(identical(as.logical(game[i, c(1, 2)]), c(FALSE, TRUE)), yes = 0,
-                                                    ifelse(identical(as.logical(game[i, c(1, 2)]), c(FALSE, FALSE)), yes = 1, no = NULL))))
+                      score <- ifelse(identical(as.logical(game[i, c(2, 3)]), c(TRUE, TRUE)), yes = 3,
+                                      ifelse(identical(as.logical(game[i, c(2, 3)]), c(TRUE, FALSE)), yes = 5,
+                                             ifelse(identical(as.logical(game[i, c(2, 3)]), c(FALSE, TRUE)), yes = 0,
+                                                    ifelse(identical(as.logical(game[i, c(2, 3)]), c(FALSE, FALSE)), yes = 1, no = NULL))))
                       return(score)
                     }, FUN.VALUE = numeric(1), USE.NAMES = F)
 
-  game$score_enemy <- ifelse(game$score_self == 1, 1,
-                             ifelse(game$score_self == 5, 0,
-                                    ifelse(game$score_self == 0, 5,
-                                           ifelse(game$score_self == 3, 3, NA))))
+  game <- game %>%
+    mutate(score_enemy = ifelse(score_self == 1, 1,
+                             ifelse(score_self == 5, 0,
+                                    ifelse(score_self == 0, 5,
+                                           ifelse(score_self == 3, 3, NA)))))
   return(game)
 }
 
