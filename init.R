@@ -13,27 +13,42 @@ play_game <- function(strat_self = "tft", strat_enemy = "soft_majo", turns = 100
                      score_self = rep(NA, turns),
                      score_enemy = rep(NA, turns))
 
+  ## Strategies that coop in the first turn
+  coop_first <- c("tft", "soft_majo", "coop")
+
   for (i in seq(turns)) {
     if (i == 1) {
-      # first turn
-      if (strat_self %in% c("tft", "soft_majo")) {
+      # self first turn
+      if (strat_self %in% coop_first) {
         game[1, "self"] <- TRUE
       } else {
         game[1, "self"] <- FALSE
       }
-      if (strat_enemy %in% c("soft_majo")){
+      # enemy first turn
+      if (strat_enemy %in% coop_first){
         game[1, "enemy"] <- TRUE
       } else {
         game[1, "enemy"] <- FALSE
       }
     } else {
+      # self strats
       if (strat_self == "tft"){
         game[i, "self"] <- game[i - 1, "enemy"]
+      } else if (strat_self == "defect") {
+        game[i, "self"] <- FALSE
+      } else if (strat_self == "coop") {
+        game[i, "self"] <- TRUE
       }
+
+      # enemy strats
       if (strat_enemy == "soft_majo"){
         game[i, "enemy"] <- as.logical(names(table(game$self))[table(game$self) == max(table(game$self))])[1] # soft_majo
       } else if (strat_enemy == "defect") {
         game[i, "enemy"] <- FALSE
+      } else if (strat_enemy == "coop") {
+        game[i, "enemy"] <- TRUE
+      } else if (strat_enemy == "tft") {
+        game[i, "enemy"] <- game[i - 1, "self"]
       }
     }
   }
