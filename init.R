@@ -9,7 +9,8 @@ library(tidyr)
 #### Running a simulation ####
 
 play_game <- function(strat_self = "tft", strat_enemy = "soft_majo", turns = 100) {
-  game <- data_frame(self = rep(NA, turns),
+  game <- data_frame(turn = seq(turns),
+                     self = rep(NA, turns),
                      enemy = rep(NA, turns),
                      score_self = rep(NA, turns),
                      score_enemy = rep(NA, turns))

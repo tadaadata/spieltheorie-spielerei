@@ -13,7 +13,6 @@ knitr::opts_chunk$set(echo = TRUE)
 
 ```{r tft_random}
 play_game("tft", "random", turns = 100) %>%
-  mutate(turn = seq(nrow(.))) %>%
   gather(side, score, starts_with("score_")) %>%
   group_by(side) %>%
   mutate(cum_score = cumsum(score)) %>%
@@ -22,6 +21,19 @@ play_game("tft", "random", turns = 100) %>%
     geom_path() +
       labs(title = "TFT (self) vs random (enemy)")
   }
-  
+```
+
+## Random vs random
+
+```{r}
+play_game("random", "random", turns = 100) %>%
+  gather(side, score, starts_with("score_")) %>%
+  group_by(side) %>%
+  mutate(cum_score = cumsum(score)) %>%
+  {
+    ggplot(data = ., aes(x = turn, y = cum_score, color = side)) +
+    geom_path() +
+      labs(title = "Random (self) vs random (enemy)")
+  }
 ```
 
