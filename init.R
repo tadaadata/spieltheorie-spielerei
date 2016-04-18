@@ -10,14 +10,21 @@ library(dplyr)
 play_game <- function(strat_self = "tft", strat_enemy = "soft_majo", turns = 100) {
   game <- data_frame(self = rep(NA, turns),
                      enemy = rep(NA, turns),
-                     score = rep(NA, turns))
+                     score_self = rep(NA, turns),
+                     score_enemy = rep(NA, turns))
 
   for (i in seq(turns)) {
     if (i == 1) {
       # first turn
       if (strat_self %in% c("tft", "soft_majo")) {
         game[1, "self"] <- TRUE
+      } else {
+        game[1, "self"] <- FALSE
+      }
+      if (strat_enemy %in% c("soft_majo")){
         game[1, "enemy"] <- TRUE
+      } else {
+        game[1, "enemy"] <- FALSE
       }
     } else {
       if (strat_self == "tft"){
@@ -25,6 +32,8 @@ play_game <- function(strat_self = "tft", strat_enemy = "soft_majo", turns = 100
       }
       if (strat_enemy == "soft_majo"){
         game[i, "enemy"] <- as.logical(names(table(game$self))[table(game$self) == max(table(game$self))])[1] # soft_majo
+      } else if (strat_enemy == "defect") {
+        game[i, "enemy"] <- FALSE
       }
     }
   }
@@ -39,13 +48,17 @@ calc_score <- function(game = NULL) {
   if (is.null(game)) return(NULL)
 
   score <- rep(NA, nrow(game))
-  game$score <- vapply(seq(nrow(game)), function(i){
-                  score <- ifelse(identical(as.logical(game[i, c(1, 2)]), c(TRUE, TRUE)), yes = 3,
-                                  ifelse(identical(as.logical(game[i, c(1, 2)]), c(TRUE, FALSE)), yes = 5,
-                                         ifelse(identical(as.logical(game[i, c(1, 2)]), c(FALSE, TRUE)), yes = 0,
-                                                ifelse(identical(as.logical(game[i, c(1, 2)]), c(FALSE, FALSE)), yes = 1, no = NULL))))
-                  return(score)
-                }, FUN.VALUE = numeric(1), USE.NAMES = F)
+  game$score_self <- vapply(seq(nrow(game)), function(i){
+                      score <- ifelse(identical(as.logical(game[i, c(1, 2)]), c(TRUE, TRUE)), yes = 3,
+                                      ifelse(identical(as.logical(game[i, c(1, 2)]), c(TRUE, FALSE)), yes = 5,
+                                             ifelse(identical(as.logical(game[i, c(1, 2)]), c(FALSE, TRUE)), yes = 0,
+                                                    ifelse(identical(as.logical(game[i, c(1, 2)]), c(FALSE, FALSE)), yes = 1, no = NULL))))
+                      return(score)
+                    }, FUN.VALUE = numeric(1), USE.NAMES = F)
+  game$score_enemy <- ifelse(game$score_self == 1, 1,
+                             ifelse(game$score_self == 5, 0,
+                                    ifelse(game$score_self == 0, 5,
+                                           ifelse(game$score_self == 3, 3, NA))))
   return(game)
 }
 
