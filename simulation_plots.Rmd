@@ -6,6 +6,7 @@ output: html_document
 ---
 
 ```{r setup, include=FALSE}
+source(paste0(Sys.getenv("PROJECT_HOME"), "./init.R"))
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
