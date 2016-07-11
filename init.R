@@ -5,6 +5,7 @@ if (!("gganimate" %in% installed.packages())) devtools::install_github("dgrtwo/g
 library(gganimate)
 library(dplyr)
 library(tidyr)
+library(ggthemes)
 
 #### Running a simulation ####
 
